@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 const MainSearch = () => {
   const [query, setQuery] = useState("");
   //const [jobs, setJobs] = useState([]);
-  const jobs = useSelector((state) => state.jobs.content);
+  const jobs = useSelector((state) => state.jobs);
   const dispatch = useDispatch();
 
   const baseEndpoint =
@@ -23,13 +23,13 @@ const MainSearch = () => {
       const response = await fetch(baseEndpoint + query + "&limit=20");
       if (response.ok) {
         const { data } = await response.json();
-        console.log(data);
+
         //setJobs(data);
         dispatch({
           type: "ADD_JOBS_ARRAY",
           payload: data,
         });
-        console.log(jobs);
+        console.log("JOBS STATE ", jobs);
       } else {
         alert("Error fetching results");
       }
@@ -61,9 +61,11 @@ const MainSearch = () => {
           </Col>
         ) : (
           <Col xs={10} className="mx-auto mb-5">
-            {jobs.map((jobData) => (
-              <Job key={jobData._id} data={jobData} />
-            ))}
+            {jobs.map((jobData) => {
+              //console.log("jobs ", jobs);
+              //console.log("jobData ", jobData);
+              return <Job key={jobData._id} data={jobData} />;
+            })}
           </Col>
         )}
       </Row>

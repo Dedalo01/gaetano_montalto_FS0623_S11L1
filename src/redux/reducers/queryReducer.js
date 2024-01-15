@@ -1,7 +1,5 @@
 const initialState = {
-  jobs: {
-    content: [],
-  },
+  jobs: [],
 };
 
 const queryReducer = (state = initialState, action) => {
@@ -9,10 +7,7 @@ const queryReducer = (state = initialState, action) => {
     case "ADD_JOBS_ARRAY":
       return {
         ...state,
-        jobs: {
-          ...state.jobs,
-          content: [...state.jobs.content, action.payload],
-        },
+        jobs: action.payload,
       };
 
     default:
