@@ -29,6 +29,7 @@ const MainSearch = () => {
           type: "ADD_JOBS_ARRAY",
           payload: data,
         });
+        console.log(jobs);
       } else {
         alert("Error fetching results");
       }
@@ -53,11 +54,18 @@ const MainSearch = () => {
             />
           </Form>
         </Col>
-        <Col xs={10} className="mx-auto mb-5">
-          {jobs.map((jobData) => (
-            <Job key={jobData._id} data={jobData} />
-          ))}
-        </Col>
+
+        {jobs.length === 0 ? (
+          <Col sm={12} className="mt-5 text-center">
+            <p>Search a Job to display all relative jobs avaiable</p>
+          </Col>
+        ) : (
+          <Col xs={10} className="mx-auto mb-5">
+            {jobs.map((jobData) => (
+              <Job key={jobData._id} data={jobData} />
+            ))}
+          </Col>
+        )}
       </Row>
     </Container>
   );
